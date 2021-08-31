@@ -1,6 +1,7 @@
 # UnderStrap BUILDER
 
-**Contributors:** holger1411
+**Created by** Alex Booth
+**Contributors:** holger1411, Gerardo Gonzalez
 **Requires at least:** WordPress 5.3.2
 **Tested up to:** WordPress 5.3.2 
 **Requires PHP:** 5.6
