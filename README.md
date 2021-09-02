@@ -44,3 +44,5 @@ UnderStrap BUILDER is distributed under the terms of the GNU GPL
 ### 1.3.9
 * Released: April 28th, 2020
 * Custom PHP code file in /inc/
+* This is the latest version uploaded by the original creators. From here on, changes and updates begin.
+**With free software you have freedom.**
