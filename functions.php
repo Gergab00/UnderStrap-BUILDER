@@ -49,6 +49,7 @@ require_once( trailingslashit( get_stylesheet_directory() ). 'inc/builder_admin_
 require_once( trailingslashit( get_stylesheet_directory() ). 'inc/post_page_meta.php' );
 require_once( trailingslashit( get_stylesheet_directory() ). 'inc/builder_custom_customizers.php' );
 require_once( trailingslashit( get_stylesheet_directory() ). 'inc/builder_custom_code.php' );
+require_once( trailingslashit( get_stylesheet_directory() ). 'inc/class-wp-bootstrap-navwalker.php');
 
 require_once( trailingslashit( get_stylesheet_directory() ). 'inc/TGM-Plugin-Activation/class-tgm-plugin-activation.php' );
 

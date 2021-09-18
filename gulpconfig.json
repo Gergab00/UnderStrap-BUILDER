@@ -8,15 +8,15 @@
     "js": "./js",
     "css": "./css",
     "csssrc": "./src/css",
-	"fonts": "./fonts",
+	"fonts": "./webfonts",
     "img": "./img",
 	"imgsrc": "./src/img",
     "sass": "./src/sass",
     "node": "./node_modules/",
 	"composer": "./vendor",
     "dev": "./src",
-    "dist": "./dist",
-    "distprod": "./dist-product",
+    "dist": "./dist/understrap-builder",
+    "distprod": "./dist-product/understrap-builder",
     "vendor": ""
   }
 }

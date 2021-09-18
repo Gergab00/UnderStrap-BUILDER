@@ -2,6 +2,7 @@
 var gulp = require( 'gulp' );
 var plumber = require( 'gulp-plumber' );
 var sass = require( 'gulp-sass' );
+var concatCss = require('gulp-concat-css');
 var babel = require( 'gulp-babel' );
 var postcss = require( 'gulp-postcss' );
 var rename = require( 'gulp-rename' );
@@ -73,6 +74,18 @@ gulp.task( 'imagemin', () =>
 );
 
 /**
+ * Concat css files
+ * 
+ * Run: gulp concat
+ */
+gulp.task('concat', () => {
+	return gulp
+		.src('./src/css/**/*.css')
+		.pipe( concatCss( '/child-theme.css' ) )
+		.pipe( gulp.dest( paths.css ) );
+});
+
+/**
  * Minifies css files.
  *
  * Run: gulp minifycss
@@ -121,7 +134,7 @@ gulp.task( 'cleancss', function() {
  * Run: gulp styles
  */
 gulp.task( 'styles', function( callback ) {
-	gulp.series( 'sass','minifycss' )( callback );
+	gulp.series( 'sass', 'minifycss' )( callback );
 } );
 
 /**
@@ -187,22 +200,30 @@ gulp.task( 'scripts', function() {
 
 		// End - All BS4 stuff
 
+		//Add wowjs files
+		paths.dev + '/js/wowjs/wow.min.js',
+
+		// Add fontawesome 5 Js files
+
+		//paths.dev + '/js/fontawesome5/all.min.js',
+
 		paths.dev + '/js/skip-link-focus-fix.js',
 
 		// Adding currently empty javascript file to add on for your own themes´ customizations
 		// Please add any customizations to this .js file only!
 		paths.dev + '/js/custom-javascript.js',
 	];
+
 	gulp
 		.src( scripts, { allowEmpty: true } )
-		.pipe( babel( { presets: ['@babel/preset-env'] } ) )
+		.pipe( babel( { presets: ['@babel/preset-env'], compact: false} ) )
 		.pipe( concat( 'child-theme.min.js' ) )
-		.pipe( uglify() )
+		.pipe( uglify())
 		.pipe( gulp.dest( paths.js ) );
 
 	return gulp
 		.src( scripts, { allowEmpty: true } )
-		.pipe( babel() )
+		.pipe( babel({compact: false}) )
 		.pipe( concat( 'child-theme.js' ) )
 		.pipe( gulp.dest( paths.js ) );
 } );
@@ -224,6 +245,15 @@ gulp.task( 'copy-assets', function( done ) {
 		.src( paths.node + '/bootstrap/dist/js/**/*.js' )
 		.pipe( gulp.dest( paths.dev + '/js/bootstrap5' ) );
 
+	/*gulp
+		.src(paths.node + '/@fortawesome/fontawesome-free/css/all.css')
+		.pipe( gulp.dest(paths.dev + '/css'));*/
+
+	// Copy wow.js JS files
+	gulp
+		.src( paths.node + '/wow.js/dist/wow.min.js' )
+		.pipe( gulp.dest( paths.dev + '/js/wowjs' ) );
+
 	// Copy all Bootstrap SCSS files
 	gulp
 		.src( paths.node + '/bootstrap/scss/**/*.scss' )
@@ -238,13 +268,13 @@ gulp.task( 'copy-assets', function( done ) {
 
 	// Copy all Font Awesome Fonts
 	gulp
-		.src( paths.node + '/font-awesome/fonts/**/*.{ttf,woff,woff2,eot,svg}' )
+		.src( paths.node + '/@fortawesome/fontawesome-free/webfonts/**/*.{ttf,woff,woff2,eot,svg}' )
 		.pipe( gulp.dest( paths.fonts ) );
 
 	// Copy all Font Awesome SCSS files
 	gulp
-		.src( paths.node + '/font-awesome/scss/*.scss' )
-		.pipe( gulp.dest( paths.dev + '/sass/fontawesome' )	);
+		.src( paths.node + '/@fortawesome/fontawesome-free/scss/**/*.scss' )
+		.pipe( gulp.dest( paths.dev + '/sass/fontawesome5' )	);
 
 	done();
 } );
@@ -255,7 +285,7 @@ gulp.task( 'clean-vendor-assets', function() {
 		paths.dev + '/js/bootstrap5',
 		paths.dev + '/sass/bootstrap5',
 		paths.fonts + '/*wesome*.{ttf,woff,woff2,eot,svg}',
-		paths.dev + '/sass/fontawesome',
+		paths.dev + '/sass/fontawesome5',
 		paths.js + paths.vendor,
 	] );
 } );
